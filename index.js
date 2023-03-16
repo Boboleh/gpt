@@ -2,12 +2,13 @@ const {Configuration, OpenAIApi} = require("openai")
 const write = require('./modules/setDataToExcel.js')
 const {getDataList, getDataIcecat} = require('./modules/getDataToExcel.js')
 const fs = require('fs')
+require('dotenv').config()
 
 const pathOutputData = './output_data/data.json'
 const pathExcelData = './input_data/ASUS_AI_Team.xlsx'
 const pathExcelDataIcecat = './input_data/Asus_ES_export.xlsx'
 const configuration = new Configuration({
-	apiKey: "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"
+	apiKey: process.env.OPENAI_API_KEY
 })
 const openai = new OpenAIApi(configuration)
 
@@ -54,7 +55,7 @@ function toCollect(pathCollectData, pathExportData) {
 
 async function responseAi(pathCollectData) {
 	let getData = getDataList(pathCollectData)
-	getData = getData.slice(650, 655)
+	getData = getData.slice(655, 656)
 	const results = []
 	await Promise.all(
 		getData.map(async (prompt) => {
